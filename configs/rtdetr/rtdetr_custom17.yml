@@ -1,0 +1,32 @@
+__include__: [
+  '../dataset/data.yml',
+  '../runtime.yml',
+  './include/dataloader.yml',
+  './include/optimizer.yml',
+  './include/custom17.yml',  # FPN-PAN to PAN,num_decoder_layers has changed from 6 to 4
+]
+
+YOLOBackbone:
+  # add SPD Conv,use v7 backbone
+  cfg: 'configs/rtdetr/include/custom17_backbone.yml'
+
+RTDETR:  # this is for algae-oa
+  multi_scale: [ 576, 608, 640, 640, 640, 672, 704, 736, 768, 800, 960, 960]
+
+train_dataloader:
+  batch_size: 4
+  num_workers: 4
+
+use_amp: False
+epoches: 150
+
+
+optimizer:
+  params:
+    - params: 'backbone'
+      lr: 0.00001
+
+  lr: 0.00005
+
+#output_dir: ./output/custom25
+output_dir: ./output2/algae_oa

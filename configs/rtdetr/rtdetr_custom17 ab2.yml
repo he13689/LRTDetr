@@ -1,0 +1,25 @@
+__include__: [
+  '../dataset/coco_detection.yml',
+  '../runtime.yml',
+  './include/dataloader.yml',
+  './include/optimizer.yml',
+  './include/custom17 ab2.yml',  # FPN-PAN to PAN,num_decoder_layers has changed from 6 to 4
+]
+
+train_dataloader:
+  batch_size: 4
+  num_workers: 4
+
+use_amp: True
+epoches: 100
+
+
+optimizer:
+  params:
+    - params: 'backbone'
+      lr: 0.00001
+
+
+  lr: 0.00005
+
+output_dir: ./output/test2  # default is 20， get 49.4
